@@ -53,8 +53,8 @@ def test_melt_dataframe(products_dataframe):
     ), "Melted DataFrame should be of type 'DataFrame'"
 
 
-def test_transpose_dataframe(sample_dataframe):
-    df_transposed = transpose_dataframe(sample_dataframe)
+def test_transpose_dataframe(products_dataframe):
+    df_transposed = transpose_dataframe(products_dataframe)
     assert isinstance(
         df_transposed, pd.DataFrame
     ), "Transposed DataFrame should be of type 'DataFrame'"
