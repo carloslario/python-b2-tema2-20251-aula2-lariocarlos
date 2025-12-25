@@ -25,9 +25,15 @@ import numpy as np
 
 def simulate_dice_rolls(number: int) -> dict:
     # Write here your code
-    pass
+    lanzamientos = np.random.randint(1,7,number)
+    dict = {1:0 , 2:0, 3:0 , 4:0, 5:0 , 6:0 }
+    for n in lanzamientos:
+        dict[n] += 1
+    for n in dict:
+        dict[n] = dict[n]/number
+    return dict
 
 
 # Si quieres probar tu código, descomenta las siguientes líneas y ejecuta el script
-# num_rolls = 10000
-# print(simulate_dice_rolls(num_rolls))
+num_rolls = 10000
+print(simulate_dice_rolls(num_rolls))
