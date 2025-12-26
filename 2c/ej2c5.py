@@ -48,37 +48,45 @@ import numpy as np
 
 def read_csv(filepath):
     # Write here your code
-    pass
+    return pd.read_csv(filepath)
 
 
 def clean_dataframe(df):
     # Write here your code
-    pass
+    #'Null', '-','NA', 'na', y espacios en blanco por NaN
+    for columna in df:
+        df[columna] = df[columna].replace(["null","-","NA","na"," "], np.nan)
+    
+    cols = ["Hindi", "English", "Science", "Maths","History", "Geography"]
+
+    df[cols] = df[cols].apply(pd.to_numeric, errors="coerce")
+    return df
 
 
 def dropna_specific_row_in_column(df, column_name):
     # Write here your code
-    pass
+    return df.dropna(subset=[column_name])
 
 
 def fillna_method(df, column_name, fill_method="ffill", fill_value=None, limit=1):
     # Write here your code
-    pass
+    df[column_name] = df[column_name].fillna(fill_method=fill_method, limit=limit)
+    return df
 
 
 # Para probar el código, descomenta las siguientes líneas y asegúrate de que el path al archivo sea correcto
-# if __name__ == "__main__":
-#     current_dir = Path(__file__).parent
-#     FILE_PATH = current_dir / "data/grades_na.csv"
-#     dataframe = read_csv(FILE_PATH)
-#     df_cleaned = clean_dataframe(dataframe)
-#     df_drop_na_rows = dropna_specific_row_in_column(df_cleaned, "Name")
-#     df_filled_column_ffill = fillna_method(
-#         df_drop_na_rows, "Hindi", fill_method="ffill", limit=1
-#     )
-#     df_filled_column_mean = fillna_method(
-#         df_filled_column_ffill, "Maths", fill_method="mean"
-#     )
-
-#     print(dataframe.head())
-#     print(df_filled_column_mean.head())
+if __name__ == "__main__":
+    current_dir = Path(__file__).parent
+    FILE_PATH = current_dir / "data/grades_na.csv"
+    dataframe = read_csv(FILE_PATH)
+    print(dataframe.head(10))
+    df_cleaned = clean_dataframe(dataframe)
+    df_drop_na_rows = dropna_specific_row_in_column(df_cleaned, "Name")
+    df_filled_column_ffill = fillna_method(
+        df_drop_na_rows, "Hindi", fill_method="ffill", limit=1
+    )
+    df_filled_column_mean = fillna_method(
+        df_filled_column_ffill, "Maths", fill_method="mean"
+    )
+    print(dataframe.head())
+    print(df_filled_column_mean.head())
